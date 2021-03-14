@@ -1,0 +1,20 @@
+[ req ]
+ default_bits           = 2048
+ default_keyfile        = www.milkyway.com.key.pem
+ distinguished_name     = req_distinguished_name
+ prompt                 = no
+ output_password        = abc123
+ x509_extensions        = v3_no_ca
+
+[ req_distinguished_name ]
+ C                      = XZ
+ ST                     = Milkyway
+ L                      = Earth
+ O                      = Aditya's Org
+ OU                     = Some Unit
+ CN                     = www.milkyway.com
+ emailAddress           = webmaster@milkyway.com
+
+[ v3_no_ca ]
+ basicConstraints=critical,CA:false,pathlen:0
+ authorityInfoAccess = caIssuers;URI:http://ca.milkyway.com/int_ca.cert.pem
