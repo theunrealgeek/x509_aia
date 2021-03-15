@@ -1,10 +1,10 @@
 [ req ]
  default_bits           = 2048
- default_keyfile        = root_ca.key.pem
+ default_keyfile        = int_ca.key.pem
  distinguished_name     = req_distinguished_name
  prompt                 = no
  output_password        = abc123
- x509_extensions        = v3_ca
+ extensions             = v3_ca
 
 [ req_distinguished_name ]
  C                      = XZ
@@ -12,8 +12,11 @@
  L                      = Earth
  O                      = Aditya's Org
  OU                     = Some Unit
- CN                     = Milkyway Root CA 1
+ CN                     = Milkyway Intermediate CA 1
  emailAddress           = ca@milkyway.com
 
 [ v3_ca ]
  basicConstraints=critical,CA:true,pathlen:1
+ authorityInfoAccess = caIssuers;URI:http://ca.milkyway.com/root_ca.crt
+ keyUsage = keyCertSign, cRLSign, digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+ extendedKeyUsage=clientAuth,serverAuth

@@ -16,5 +16,12 @@
  emailAddress           = webmaster@milkyway.com
 
 [ v3_no_ca ]
- basicConstraints=critical,CA:false,pathlen:0
- authorityInfoAccess = caIssuers;URI:http://ca.milkyway.com/int_ca.cert.pem
+ basicConstraints=critical,CA:FALSE
+ authorityInfoAccess = caIssuers;URI:http://ca.milkyway.com/int_ca.crt
+ keyUsage = digitalSignature
+ extendedKeyUsage=serverAuth
+ subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1 = www.milkyway.com
+
