@@ -1,5 +1,16 @@
 %: all
 
+CA_PORT ?= 80
+CONFIGS := int_ca_config int1_ca_config www.milkyway.com_config
+
+.PHONY: configs
+configs: $(CONFIGS)
+
+.PHONY: $(CONFIGS)
+$(CONFIGS):
+	@test $(CA_PORT) -ne 80 && sed -i '' -E "s#http://ca.milkyway.com/#http://ca.milkyway.com:$(CA_PORT)/#" $@ || true
+	@test $(CA_PORT) -eq 80 && sed -i '' -E "s#http://ca.milkyway.com:[0-9]+/#http://ca.milkyway.com/#" $@ || true
+
 root_ca.key.pem:
 	openssl genrsa -des3 -out root_ca.key.pem 2048
 
@@ -36,7 +47,7 @@ www.milkyway.com.cert.pem: www.milkyway.com.key.pem int_ca.cert.pem int1_ca.cert
 	cat www.milkyway.com.cert.pem int1_ca.cert.pem > www.milkyway.com.bad.chain.pem
 
 .PHONY: all
-all: root_ca.cert.pem int_ca.cert.pem int1_ca.cert.pem www.milkyway.com.cert.pem
+all: configs root_ca.cert.pem int_ca.cert.pem int1_ca.cert.pem www.milkyway.com.cert.pem
 
 .PHONY: clean
 clean:

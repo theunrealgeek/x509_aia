@@ -2,3 +2,6 @@ certs/*.pem
 certs/*.csr
 certs/*.srl
 certs/*.crt
+
+.idea
+*.iml
